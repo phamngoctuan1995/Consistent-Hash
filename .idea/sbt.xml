@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../ConsistentHashing" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../ConsistentHashing" />
+            <option value="$PROJECT_DIR$/../ConsistentHashing/project" />
+          </set>
+        </option>
+      </SbtProjectSettings>
+    </option>
+  </component>
+</project>

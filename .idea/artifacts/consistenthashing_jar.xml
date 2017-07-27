@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="consistenthashing:jar">
+    <output-path>$PROJECT_DIR$/../ConsistentHashing/out/artifacts/consistenthashing_jar</output-path>
+    <root id="archive" name="consistenthashing.jar">
+      <element id="module-output" name="consistenthashing" />
+      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
