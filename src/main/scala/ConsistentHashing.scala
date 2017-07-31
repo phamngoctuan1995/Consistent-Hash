@@ -12,6 +12,7 @@ class ConsistentHash[K, V](servers: List[V] = null, replicate: Int = 15)(implici
 
     if (servers != null)
         servers.foreach(server => add(server, replicate))
+    stt()
 
     private def stt() = {
         val count = HashMap.empty[V, Long]
@@ -33,6 +34,14 @@ class ConsistentHash[K, V](servers: List[V] = null, replicate: Int = 15)(implici
         if (salt)
             return MessageDigest.getInstance(hashType).digest((random.nextInt() + "-" + str.toString).getBytes).hashCode()
         return MessageDigest.getInstance(hashType).digest(str.toString.getBytes).toList.hashCode()
+    }
+
+    private def CustomHash_x64(element: Any): Long = {
+        val string = element.toString
+        var h = 1125899906842597L // prime
+        for (i <- 0 until string.length)
+            h = 31 * h + string.charAt(i)
+        h
     }
 
     private def binarySearch(hCode: Int):V = {
@@ -68,6 +77,7 @@ class ConsistentHash[K, V](servers: List[V] = null, replicate: Int = 15)(implici
             entries += server -> List.empty[Int]
             (1 to replicate).foreach(i => {
                 val hCode = NativeHash(JavaHash("SHA-256")(i + "-" + server, false) + "-" + server, false)
+//                val hCode = CustomHash_x64(JavaHash("SHA-256")(i + "-" + server, false) + "-" + server).toInt
                 entries.update(server, hCode :: entries(server))
                 ring.add(Tuple2(hCode, server))
             })
@@ -93,7 +103,8 @@ class ConsistentHash[K, V](servers: List[V] = null, replicate: Int = 15)(implici
     def get(key: K):V = {
         if (ringArray.length <= 0)
             throw new Exception("Consistent Hash is empty")
-        val hCode = NativeHash("user-" + key, false)
+        val hCode = CustomHash_x64("user-" + key, false).toInt
+//        val hCode = NativeHash("user-" + key, false)
         binarySearch(hCode)
     }
 }
